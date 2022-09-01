@@ -41,6 +41,7 @@
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.txtz = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.isCalculatedLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // textProfile
@@ -178,10 +179,21 @@
             this.label5.TabIndex = 1;
             this.label5.Text = "Положение по оси Z, мм";
             // 
+            // isCalculatedLabel
+            // 
+            this.isCalculatedLabel.AutoSize = true;
+            this.isCalculatedLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.isCalculatedLabel.Location = new System.Drawing.Point(313, 196);
+            this.isCalculatedLabel.Name = "isCalculatedLabel";
+            this.isCalculatedLabel.Size = new System.Drawing.Size(187, 18);
+            this.isCalculatedLabel.TabIndex = 8;
+            this.isCalculatedLabel.Text = "Нет результатов расчета!";
+            // 
             // Form1
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(443, 247);
+            this.ClientSize = new System.Drawing.Size(509, 247);
+            this.Controls.Add(this.isCalculatedLabel);
             this.Controls.Add(this.btnOutput);
             this.Controls.Add(this.btnCalculate);
             this.Controls.Add(this.label4);
@@ -218,8 +230,7 @@
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.TextBox txtz;
         private System.Windows.Forms.Label label5;
-
-
+        private System.Windows.Forms.Label isCalculatedLabel;
     }
 }
 

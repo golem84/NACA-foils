@@ -25,13 +25,16 @@ namespace WindowsFormsApplication2
         double[] x; 
 
         double cx0, cy0, mass; // координаты центра тяжести, масса фигуры
-        //string mes1, mes2, mes3;
         string fn; // имя файла
 
         // обработка событий формы
+
+        // конструктор
         public Form1()
         {
-            InitializeComponent();          
+            InitializeComponent();    
+            
+            //перечисляем переменные для программы (читай - формы Form1)
             saveFileDialog1.DefaultExt = ".txt";
             saveFileDialog1.Filter = "текст (*.txt)|*.txt";
             saveFileDialog1.Title = "Сохранение файла " + textProfile.Text + ".txt";
@@ -54,21 +57,17 @@ namespace WindowsFormsApplication2
 
         }
 
+
+        // нажатие кнопки "Сохранить"
         private void btnOutput_Click(object sender, EventArgs e)
         {
             //int result = 0;
 
-
-            // отобразить диалог Сохранить
-            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
-            {
-                // отобразить имя файла в заголовке окна
-                saveFileDialog1.Title = txtProfile;
-                saveFileDialog1.FileName = txtProfile + ".txt";
-                fn = saveFileDialog1.FileName;
-                // this.Text = fn;
-            }
-
+            saveFileDialog1.Title = "Сохранение файла " + textProfile.Text + ".txt";
+            
+            if (saveFileDialog1.ShowDialog() == DialogResult.Cancel)
+                return;
+            fn = saveFileDialog1.FileName;
 
             // сохранить файл
             if (fn != string.Empty)
@@ -111,10 +110,8 @@ namespace WindowsFormsApplication2
                         sw.WriteLine(a.ToString("000.000", myformat) + "mm");
                     }
 
-
                     // закрываем поток
                     sw.Close();
-
                 }
                 catch (Exception exc)
                 {
@@ -122,15 +119,17 @@ namespace WindowsFormsApplication2
                                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-
+            MessageBox.Show("Файл успешно сохранен!");
         }
+
+        // нажатие кнопки "Рассчитать"
         private void btnCalculate_Click(object sender, EventArgs e)
         {
             // проверка введенных данных
             try
             {
                 Chord = Convert.ToDouble(textChord.Text);
-                Angle = -Convert.ToDouble(textAngle.Text)*3.14159265/180;
+                Angle = Convert.ToDouble(textAngle.Text)*3.14159265/180;
                 //NPoint = Convert.ToInt16(textNPoint.Text);
                 zz = Convert.ToDouble(txtz.Text);
 
@@ -233,11 +232,6 @@ namespace WindowsFormsApplication2
                 cy2 = cy2 + cys;
             }
             
-            /*
-            mes1 = Convert.ToString(ss1) + ' ' + Convert.ToString(cx1) + ' ' + Convert.ToString(cy1);
-            mes2 = Convert.ToString(ss2) + ' ' + Convert.ToString(cx2) + ' ' + Convert.ToString(cy2);
-            mes3 = Convert.ToString(ss1-ss2)+' '+Convert.ToString((cx1*ss1-cx2*ss2)/(ss1-ss2))+' '+Convert.ToString((cy1*ss1-cy2*ss2)/(ss1-ss2));
-             */
             mass = ss1 - ss2;
             cx0 = (cx1  - cx2 ) / mass;
             cy0 = (cy1  - cy2 ) / mass;
@@ -266,6 +260,9 @@ namespace WindowsFormsApplication2
                 low_y[i] = dy;
             }
 
+            isCalculatedLabel.Text = "Есть результаты расчета.";
+            isCalculatedLabel.BackColor = Color.GreenYellow;
+            MessageBox.Show("Расчет завершен.");
         }
     }
 }
