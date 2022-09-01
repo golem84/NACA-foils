@@ -36,7 +36,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.btnCalculate = new System.Windows.Forms.Button();
             this.btnOutput = new System.Windows.Forms.Button();
-            this.btnGraph = new System.Windows.Forms.Button();
             this.textNPoint = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
@@ -76,7 +75,7 @@
             this.textChord.Name = "textChord";
             this.textChord.Size = new System.Drawing.Size(91, 24);
             this.textChord.TabIndex = 1;
-            this.textChord.Text = "25.4";
+            this.textChord.Text = "25,4";
             this.textChord.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label2
@@ -99,7 +98,7 @@
             this.textAngle.Name = "textAngle";
             this.textAngle.Size = new System.Drawing.Size(91, 24);
             this.textAngle.TabIndex = 3;
-            this.textAngle.Text = "3.5";
+            this.textAngle.Text = "3,5";
             this.textAngle.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label3
@@ -132,14 +131,6 @@
             this.btnOutput.Text = "Вывести в файл";
             this.btnOutput.UseVisualStyleBackColor = true;
             this.btnOutput.Click += new System.EventHandler(this.btnOutput_Click);
-            // 
-            // btnGraph
-            // 
-            this.btnGraph.Location = new System.Drawing.Point(357, 48);
-            this.btnGraph.Name = "btnGraph";
-            this.btnGraph.Size = new System.Drawing.Size(56, 53);
-            this.btnGraph.TabIndex = 7;
-            this.btnGraph.UseVisualStyleBackColor = true;
             // 
             // textNPoint
             // 
@@ -191,7 +182,6 @@
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(443, 247);
-            this.Controls.Add(this.btnGraph);
             this.Controls.Add(this.btnOutput);
             this.Controls.Add(this.btnCalculate);
             this.Controls.Add(this.label4);
@@ -223,7 +213,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnCalculate;
         private System.Windows.Forms.Button btnOutput;
-        private System.Windows.Forms.Button btnGraph;
         private System.Windows.Forms.TextBox textNPoint;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;

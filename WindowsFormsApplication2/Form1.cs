@@ -16,14 +16,14 @@ namespace WindowsFormsApplication2
         double Chord, Angle, zz;
         int NPoint;
         string txtProfile;
-        bool isCenter;
+        //bool isCenter;
         // массивы значений для точек кривых
-        double[] high_x = new double [250];
-        double[] high_y = new double[250];
-        double[] low_x = new double[250];
-        double[] low_y = new double[250];
-        double[] c = new double[250];
-        double[] x = new double[250];
+        double[] high_x; 
+        double[] high_y; 
+        double[] low_x; 
+        double[] low_y; 
+        double[] c; 
+        double[] x; 
 
         double cx0, cy0, mass; // координаты центра тяжести, масса фигуры
 
@@ -58,26 +58,50 @@ namespace WindowsFormsApplication2
             x.Initialize();
             //dc.Initialize();
             */
-            saveFileDialog1.DefaultExt = "txt";
-            saveFileDialog1.Filter = "текст|*.txt";
-            saveFileDialog1.Title = "Сохранение файла.";
+            saveFileDialog1.DefaultExt = ".txt";
+            saveFileDialog1.Filter = "текст (*.txt)|*.txt";
+            saveFileDialog1.Title = "Сохранение файла "+ textProfile.Text;
             fn = "";
-            
-        }
+            try
+            {
+                NPoint = Convert.ToInt16(textNPoint.Text);
+            }
+            catch (FormatException ex)
+            {
+                MessageBox.Show("Внимание","Ошибка в поле ввода количества точек! " + ex.Message, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
+            high_x = new double[NPoint];
+            high_y = new double[NPoint];
+            low_x = new double[NPoint];
+            low_y = new double[NPoint];
+            c = new double[NPoint];
+            x = new double[NPoint];
+
+            }
+
+        /*
         private int SaveDocument()
         {
-            int result = 0;
             
-           
-                // отобразить диалог Сохранить
-                if (saveFileDialog1.ShowDialog() == DialogResult.OK)
-                {
-                    // отобразить имя файла в заголовке окна
-                    fn = saveFileDialog1.FileName;
-                    // this.Text = fn;
-                }
-                
+        }
+        */
+
+        private void btnOutput_Click(object sender, EventArgs e)
+        {
+            //int result = 0;
+
+
+            // отобразить диалог Сохранить
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                // отобразить имя файла в заголовке окна
+                saveFileDialog1.Title = txtProfile;
+                saveFileDialog1.FileName = txtProfile + ".txt";
+                fn = saveFileDialog1.FileName;
+                // this.Text = fn;
+            }
+
 
             // сохранить файл
             if (fn != string.Empty)
@@ -90,15 +114,15 @@ namespace WindowsFormsApplication2
                     System.IO.StreamWriter sw = fi.CreateText();
                     // записываем данные
 
-                    NumberFormatInfo myformat = new CultureInfo( "en-US", false ).NumberFormat;
+                    NumberFormatInfo myformat = new CultureInfo("en-US", false).NumberFormat;
                     myformat.NumberDecimalSeparator = ".";
 
                     double a = zz;
-                    for (int i = NPoint; i >= 0; i--)
+                    for (int i = NPoint-1; i >= 0; i--)
                     {
-                        
+
                         //a = Convert.ToDouble(high_x.GetValue(i));
-                        sw.Write(high_x[i].ToString("000.000", myformat ) + "mm");
+                        sw.Write(high_x[i].ToString("000.000", myformat) + "mm");
                         sw.Write('\t'); // знак табуляции между числами
                         //a = Convert.ToDouble(high_y.GetValue(i));
                         sw.Write(high_y[i].ToString("000.000", myformat) + "mm");
@@ -106,10 +130,10 @@ namespace WindowsFormsApplication2
                         //a = zz;
                         sw.WriteLine(a.ToString("000.000", myformat) + "mm");
                     }
-                    
-                    for (int i = 1; i <= NPoint; i++)
+
+                    for (int i = 1; i < NPoint; i++)
                     {
-                        
+
                         //a = Convert.ToDouble(low_x.GetValue(i));
                         sw.Write(low_x[i].ToString("000.000", myformat) + "mm");
                         sw.Write('\t'); // знак табуляции между числами
@@ -120,12 +144,12 @@ namespace WindowsFormsApplication2
                         sw.WriteLine(a.ToString("000.000", myformat) + "mm");
                     }
 
-                   // sw.WriteLine(mes1);
-                   // sw.WriteLine(mes2);
-                   // sw.WriteLine(mes3);
+                    // sw.WriteLine(mes1);
+                    // sw.WriteLine(mes2);
+                    // sw.WriteLine(mes3);
                     // закрываем поток
                     sw.Close();
-                    result = 0;
+                    //result = 0;
                 }
                 catch (Exception exc)
                 {
@@ -133,13 +157,8 @@ namespace WindowsFormsApplication2
                                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            return result;
-        }
+            //return result;
 
-        private void btnOutput_Click(object sender, EventArgs e)
-        {
-            SaveDocument();
-            
         }
                 
         private void btnCalculate_Click(object sender, EventArgs e)
@@ -149,20 +168,20 @@ namespace WindowsFormsApplication2
             {
                 Chord = Convert.ToDouble(textChord.Text);
                 Angle = -Convert.ToDouble(textAngle.Text)*3.14159265/180;
-                NPoint = Convert.ToInt16(textNPoint.Text);
+                //NPoint = Convert.ToInt16(textNPoint.Text);
                 zz = Convert.ToDouble(txtz.Text);
 
                 txtProfile = textProfile.Text;
             }
             catch (FormatException ex)
             {
-                if ((textChord.Text.Length == 0) || (textAngle.Text.Length == 0) || (textNPoint.Text.Length == 0) || (textProfile.Text.Length == 0))
+                if ((textChord.Text.Length == 0) || (textAngle.Text.Length == 0) || /*(textNPoint.Text.Length == 0) ||*/ (textProfile.Text.Length == 0))
                     MessageBox.Show("Заполните пустые поля." , "Внимание! "+ ex.Message, MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 else
                     MessageBox.Show("Ошибка в полях." , "Ошибка! "+ ex.Message, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            if (NPoint >= 250) MessageBox.Show("Задайте меньшее количество расчетных точек.", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //if (NPoint >= 250) MessageBox.Show("Задайте меньшее количество расчетных точек.", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             // перевод угла из радиан в градусы
             // положительное направление - вращение системы координат по часовой стрелке
@@ -184,7 +203,7 @@ namespace WindowsFormsApplication2
                 double teta;
                 double yh, yl, xh, xl;
             // нахождение координат верхней и нижней части профиля
-            for (int i = 0; i <= NPoint; i++)
+            for (int i = 0; i < NPoint; i++)
             {
                 xc = Chord * i / NPoint; // координата Х
                 // координата У для средней линии
@@ -226,7 +245,8 @@ namespace WindowsFormsApplication2
             cy2 = 0;
             ss1 = 0;
             ss2 = 0;
-            for (int i=0; i<=NPoint-1; i++)
+            // вычисляем центр масс профиля
+            for (int i=0; i<NPoint-1; i++)
             {
                 // координаты центра масс элементарной трапеции
                 dx = high_x[i + 1] - high_x[i];
@@ -260,7 +280,7 @@ namespace WindowsFormsApplication2
             cy0 = (cy1  - cy2 ) / mass;
 
             // переносим начало координат в центр масс профиля
-            for (int i = 0; i<=NPoint; i++)
+            for (int i = 0; i<NPoint; i++)
             {
                 high_x[i] = high_x[i] - cx0;
                 low_x[i] = low_x[i] - cx0;
@@ -270,7 +290,7 @@ namespace WindowsFormsApplication2
 
             // поворачиваем оси координат на заданный угол
 
-            for (int i = 0; i <= NPoint; i++)
+            for (int i = 0; i < NPoint; i++)
             {
                 dx = high_x[i] * Math.Cos(Angle) + high_y[i] * Math.Sin(Angle);
                 dy = -high_x[i] * Math.Sin(Angle) + high_y[i] * Math.Cos(Angle);
