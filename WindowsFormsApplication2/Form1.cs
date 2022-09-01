@@ -16,7 +16,6 @@ namespace WindowsFormsApplication2
         double Chord, Angle, zz;
         int NPoint;
         string txtProfile;
-        //bool isCenter;
         // массивы значений для точек кривых
         double[] high_x; 
         double[] high_y; 
@@ -26,41 +25,16 @@ namespace WindowsFormsApplication2
         double[] x; 
 
         double cx0, cy0, mass; // координаты центра тяжести, масса фигуры
-
-        string mes1, mes2, mes3;
-
-        /*
-        Array high_x = new double[250]; // верхняя дуга профиля
-        Array high_y = new double[250];
-        Array low_x = new double[250]; // нижняя дуга профиля
-        Array low_y = new double[250];
-        Array c = new double[250]; // координата средней линии
-        Array x = new double[250]; // координата Х
-        //Array yt = new double[250]; // толщина профиля
-        //Array dc = new double[250]; // производная от средней линии
-        */
+        //string mes1, mes2, mes3;
         string fn; // имя файла
-        
 
         // обработка событий формы
         public Form1()
         {
-            InitializeComponent();
-          
-           // инициализация массива значений для кривых
-            /*
-            high_x.Initialize();
-            low_x.Initialize();
-            high_y.Initialize();
-            low_y.Initialize();
-
-            c.Initialize();
-            x.Initialize();
-            //dc.Initialize();
-            */
+            InitializeComponent();          
             saveFileDialog1.DefaultExt = ".txt";
             saveFileDialog1.Filter = "текст (*.txt)|*.txt";
-            saveFileDialog1.Title = "Сохранение файла "+ textProfile.Text;
+            saveFileDialog1.Title = "Сохранение файла " + textProfile.Text + ".txt";
             fn = "";
             try
             {
@@ -68,9 +42,9 @@ namespace WindowsFormsApplication2
             }
             catch (FormatException ex)
             {
-                MessageBox.Show("Внимание","Ошибка в поле ввода количества точек! " + ex.Message, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Внимание", "Ошибка в поле ввода количества точек! " + ex.Message, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
+            // инициализация массива значений для кривых
             high_x = new double[NPoint];
             high_y = new double[NPoint];
             low_x = new double[NPoint];
@@ -78,14 +52,7 @@ namespace WindowsFormsApplication2
             c = new double[NPoint];
             x = new double[NPoint];
 
-            }
-
-        /*
-        private int SaveDocument()
-        {
-            
         }
-        */
 
         private void btnOutput_Click(object sender, EventArgs e)
         {
@@ -118,7 +85,7 @@ namespace WindowsFormsApplication2
                     myformat.NumberDecimalSeparator = ".";
 
                     double a = zz;
-                    for (int i = NPoint-1; i >= 0; i--)
+                    for (int i = NPoint - 1; i >= 0; i--)
                     {
 
                         //a = Convert.ToDouble(high_x.GetValue(i));
@@ -144,12 +111,10 @@ namespace WindowsFormsApplication2
                         sw.WriteLine(a.ToString("000.000", myformat) + "mm");
                     }
 
-                    // sw.WriteLine(mes1);
-                    // sw.WriteLine(mes2);
-                    // sw.WriteLine(mes3);
+
                     // закрываем поток
                     sw.Close();
-                    //result = 0;
+
                 }
                 catch (Exception exc)
                 {
@@ -157,10 +122,8 @@ namespace WindowsFormsApplication2
                                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            //return result;
 
         }
-                
         private void btnCalculate_Click(object sender, EventArgs e)
         {
             // проверка введенных данных
